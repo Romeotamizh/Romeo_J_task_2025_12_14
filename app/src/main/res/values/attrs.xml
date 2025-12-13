@@ -1,0 +1,6 @@
+<resources>
+    <attr name="dividerColor" format="color" />
+    <attr name="textColorOnPrimary" format="color" />
+    <attr name="textColorSmall" format="color" />
+    <attr name="tabTextColor" format="color" />
+</resources>

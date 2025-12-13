@@ -1,0 +1,17 @@
+# Folders
+.gradle/
+build/
+captures/
+
+# Files
+*.iml
+.DS_Store
+local.properties
+
+# IDE files
+.idea/workspace.xml
+.idea/gradle.xml
+
+# Keystore files
+*.jks
+*.keystore

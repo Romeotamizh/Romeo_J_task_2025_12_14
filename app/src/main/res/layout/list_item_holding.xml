@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/dp_16">
+
+    <TextView
+        android:id="@+id/symbol"
+        style="@style/TitleCaps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="HDFC"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/net_qty_label"
+        style="@style/SmallTextCaps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_net_qty"
+        app:layout_constraintStart_toStartOf="@+id/symbol"
+        app:layout_constraintTop_toTopOf="@id/net_qty_value"
+        app:layout_constraintBottom_toBottomOf="@id/net_qty_value"/>
+
+    <TextView
+        android:id="@+id/net_qty_value"
+        style="@style/SubTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_8"
+        android:text="120" 
+        app:layout_constraintBottom_toBottomOf="@+id/p_and_l_value"
+        app:layout_constraintStart_toEndOf="@+id/net_qty_label"
+        app:layout_constraintTop_toTopOf="@+id/p_and_l_value" />
+
+    <TextView
+        android:id="@+id/ltp_value"
+        style="@style/SubTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="End Text"
+        app:layout_constraintBottom_toBottomOf="@+id/symbol"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/symbol" />
+
+    <TextView
+        android:id="@+id/ltp_label"
+        style="@style/SmallTextCaps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_8"
+        android:text="@string/label_ltp"
+        app:layout_constraintBottom_toBottomOf="@+id/ltp_value"
+        app:layout_constraintEnd_toStartOf="@+id/ltp_value"
+        app:layout_constraintTop_toTopOf="@+id/ltp_value" />
+
+    <TextView
+        android:id="@+id/p_and_l_label"
+        style="@style/SmallTextCaps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_p_and_l"
+        android:layout_marginEnd="@dimen/dp_8"
+        app:layout_constraintEnd_toStartOf="@id/p_and_l_value"
+        app:layout_constraintTop_toTopOf="@id/p_and_l_value"
+        app:layout_constraintBottom_toBottomOf="@id/p_and_l_value"/>
+
+
+    <TextView
+        android:id="@+id/p_and_l_value"
+        style="@style/SubTitle"
+        android:layout_marginTop="@dimen/dp_16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="150.0"
+        app:layout_constraintEnd_toEndOf="@+id/ltp_value"
+        app:layout_constraintTop_toBottomOf="@+id/ltp_value" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

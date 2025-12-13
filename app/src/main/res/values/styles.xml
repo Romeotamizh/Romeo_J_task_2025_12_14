@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ToolbarText">
+        <item name="android:textSize">@dimen/sp_20</item>
+        <item name="android:textColor">?attr/textColorOnPrimary</item>
+    </style>
+
+    <style name="Title">
+        <item name="android:textSize">@dimen/sp_16</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?attr/textColorOnPrimary</item>
+    </style>
+
+    <style name="TitleCaps" parent="Title">
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="SubTitle">
+        <item name="android:textSize">@dimen/sp_14</item>
+        <item name="android:textColor">?attr/textColorOnPrimary</item>
+    </style>
+
+    <style name="SubtitleBold" parent="SubTitle">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="SubtitleCaps" parent="SubTitle">
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="SmallText">
+        <item name="android:textSize">@dimen/sp_10</item>
+        <item name="android:textColor">?attr/textColorSmall</item>
+    </style>
+
+    <style name="SmallTextCaps" parent="SmallText">
+        <item name="android:textAllCaps">true</item>
+    </style>
+</resources>
