@@ -5,7 +5,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.romeojtask.R
 import com.example.romeojtask.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayoutMediator
 

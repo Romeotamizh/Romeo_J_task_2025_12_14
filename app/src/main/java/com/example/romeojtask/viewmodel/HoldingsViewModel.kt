@@ -1,26 +1,28 @@
 package com.example.romeojtask.viewmodel
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.romeojtask.data.api.RetrofitInstance
-import com.example.romeojtask.data.model.Holding
+import com.example.romeojtask.data.db.AppDatabase
+import com.example.romeojtask.data.db.HoldingEntity
+import com.example.romeojtask.data.repository.HoldingsRepository
 import kotlinx.coroutines.launch
 
-class HoldingsViewModel : ViewModel() {
+class HoldingsViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val _holdings = MutableLiveData<List<Holding>>()
-    val holdings: LiveData<List<Holding>> = _holdings
+    private val repository: HoldingsRepository
+    val allHoldings: LiveData<List<HoldingEntity>>
 
-    fun fetchHoldings() {
+    init {
+        val holdingsDao = AppDatabase.getDatabase(application).holdingsDao()
+        repository = HoldingsRepository(holdingsDao)
+        allHoldings = repository.allHoldings
+    }
+
+    fun refreshHoldings() {
         viewModelScope.launch {
-            try {
-                val response = RetrofitInstance.api.getHoldings()
-                _holdings.value = response.data.holdings
-            } catch (e: Exception) {
-                // Handle error
-            }
+            repository.refreshHoldings()
         }
     }
 }

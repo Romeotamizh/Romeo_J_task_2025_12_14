@@ -1,12 +1,15 @@
 package com.example.romeojtask.ui.holdings
 
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.example.romeojtask.data.model.Holding
+import com.example.romeojtask.R
+import com.example.romeojtask.data.db.HoldingEntity
 import com.example.romeojtask.databinding.ListItemHoldingBinding
 
-class HoldingsAdapter(private var holdings: List<Holding>) : RecyclerView.Adapter<HoldingsAdapter.ViewHolder>() {
+class HoldingsAdapter(private var holdings: List<HoldingEntity>) : RecyclerView.Adapter<HoldingsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ListItemHoldingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -20,12 +23,24 @@ class HoldingsAdapter(private var holdings: List<Holding>) : RecyclerView.Adapte
         holder.binding.ltpValue.text = holding.ltp.toString()
 
         val pnl = (holding.ltp - holding.close) * holding.quantity
-        holder.binding.pAndLValue.text = String.format("%.2f", pnl)
+        holder.binding.pnlValue.text = String.format("%.2f", pnl)
+
+        val context = holder.itemView.context
+        val pnlColor = when {
+            pnl > 0 -> ContextCompat.getColor(context, R.color.green)
+            pnl < 0 -> ContextCompat.getColor(context, R.color.red)
+            else -> {
+                val typedValue = TypedValue()
+                context.theme.resolveAttribute(R.attr.textColorOnPrimary, typedValue, true)
+                typedValue.data
+            }
+        }
+        holder.binding.pnlValue.setTextColor(pnlColor)
     }
 
     override fun getItemCount() = holdings.size
 
-    fun updateData(newHoldings: List<Holding>) {
+    fun updateData(newHoldings: List<HoldingEntity>) {
         this.holdings = newHoldings
         notifyDataSetChanged()
     }

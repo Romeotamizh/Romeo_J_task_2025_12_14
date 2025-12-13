@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.romeojtask.R
 import com.example.romeojtask.databinding.FragmentHoldingsBinding
 import com.example.romeojtask.ui.DividerItemDecoration
 import com.example.romeojtask.viewmodel.HoldingsViewModel
@@ -38,11 +37,11 @@ class HoldingsFragment : Fragment() {
 
         viewModel = ViewModelProvider(this).get(HoldingsViewModel::class.java)
 
-        viewModel.holdings.observe(viewLifecycleOwner) {
+        viewModel.allHoldings.observe(viewLifecycleOwner) {
             holdingsAdapter.updateData(it)
         }
 
-        viewModel.fetchHoldings()
+        viewModel.refreshHoldings()
     }
 
     override fun onDestroyView() {

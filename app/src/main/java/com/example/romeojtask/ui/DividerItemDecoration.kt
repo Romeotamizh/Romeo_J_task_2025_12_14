@@ -1,6 +1,7 @@
 package com.example.romeojtask.ui
 
 import android.content.Context
+import android.content.res.TypedArray
 import android.graphics.Canvas
 import android.graphics.Paint
 import androidx.core.content.ContextCompat
@@ -13,8 +14,11 @@ class DividerItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
 
     init {
         val typedArray = context.obtainStyledAttributes(intArrayOf(R.attr.dividerColor))
-        paint.color = typedArray.getColor(0, ContextCompat.getColor(context, android.R.color.black))
-        typedArray.recycle()
+        try {
+            paint.color = typedArray.getColor(0, ContextCompat.getColor(context, android.R.color.black))
+        } finally {
+            typedArray.recycle()
+        }
     }
 
     override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {

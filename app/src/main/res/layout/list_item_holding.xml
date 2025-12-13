@@ -30,11 +30,11 @@
         style="@style/SubTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_8"
+        android:layout_marginStart="@dimen/dp_4"
         android:text="120" 
-        app:layout_constraintBottom_toBottomOf="@+id/p_and_l_value"
+        app:layout_constraintBottom_toBottomOf="@+id/pnl_value"
         app:layout_constraintStart_toEndOf="@+id/net_qty_label"
-        app:layout_constraintTop_toTopOf="@+id/p_and_l_value" />
+        app:layout_constraintTop_toTopOf="@+id/pnl_value" />
 
     <TextView
         android:id="@+id/ltp_value"
@@ -58,19 +58,19 @@
         app:layout_constraintTop_toTopOf="@+id/ltp_value" />
 
     <TextView
-        android:id="@+id/p_and_l_label"
+        android:id="@+id/pnl_label"
         style="@style/SmallTextCaps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/label_p_and_l"
         android:layout_marginEnd="@dimen/dp_8"
-        app:layout_constraintEnd_toStartOf="@id/p_and_l_value"
-        app:layout_constraintTop_toTopOf="@id/p_and_l_value"
-        app:layout_constraintBottom_toBottomOf="@id/p_and_l_value"/>
+        app:layout_constraintEnd_toStartOf="@id/pnl_value"
+        app:layout_constraintTop_toTopOf="@id/pnl_value"
+        app:layout_constraintBottom_toBottomOf="@id/pnl_value"/>
 
 
     <TextView
-        android:id="@+id/p_and_l_value"
+        android:id="@+id/pnl_value"
         style="@style/SubTitle"
         android:layout_marginTop="@dimen/dp_16"
         android:layout_width="wrap_content"
