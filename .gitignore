@@ -2,16 +2,28 @@
 .gradle/
 build/
 captures/
+.idea/
 
 # Files
 *.iml
 .DS_Store
 local.properties
 
-# IDE files
-.idea/workspace.xml
-.idea/gradle.xml
-
 # Keystore files
 *.jks
 *.keystore
+
+# Log files
+*.log
+
+# Other
+.cxx/
+*.hprof
+.DS_Store
+.externalNativeBuild/
+*.apk
+*.ap_
+*.aab
+*.app
+*.aar
+*~
