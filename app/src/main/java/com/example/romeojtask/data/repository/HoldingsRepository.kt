@@ -1,5 +1,6 @@
 package com.example.romeojtask.data.repository
 
+import androidx.lifecycle.LiveData
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -11,6 +12,8 @@ import kotlinx.coroutines.flow.Flow
 
 @OptIn(ExperimentalPagingApi::class)
 class HoldingsRepository(private val database: AppDatabase) {
+
+    val allHoldingsForSummary: LiveData<List<HoldingEntity>> = database.holdingsDao().getAllHoldingsList()
 
     fun getHoldingsStream(): Flow<PagingData<HoldingEntity>> = Pager(
         config = PagingConfig(

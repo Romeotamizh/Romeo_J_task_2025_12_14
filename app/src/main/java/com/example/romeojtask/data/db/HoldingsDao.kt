@@ -1,5 +1,6 @@
 package com.example.romeojtask.data.db
 
+import androidx.lifecycle.LiveData
 import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
@@ -13,6 +14,9 @@ interface HoldingsDao {
 
     @Query("SELECT * FROM holdings")
     fun getAllHoldings(): PagingSource<Int, HoldingEntity>
+
+    @Query("SELECT * FROM holdings")
+    fun getAllHoldingsList(): LiveData<List<HoldingEntity>>
 
     @Query("DELETE FROM holdings")
     suspend fun clearAllHoldings()

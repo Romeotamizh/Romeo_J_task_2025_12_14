@@ -4,4 +4,7 @@
     <string name="label_ltp">LTP:</string>
     <string name="label_net_qty">NET QTY:</string>
     <string name="label_p_and_l">P&amp;L:</string>
+    <string name="label_current_value">Current Value</string>
+    <string name="label_total_investment">Total Investment</string>
+    <string name="label_todays_p_and_l">Today\'s Profit &amp; Loss</string>
 </resources>

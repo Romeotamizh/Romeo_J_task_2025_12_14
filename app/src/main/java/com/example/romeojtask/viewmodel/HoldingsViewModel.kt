@@ -2,6 +2,7 @@ package com.example.romeojtask.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
@@ -14,10 +15,12 @@ class HoldingsViewModel(application: Application) : AndroidViewModel(application
 
     private val repository: HoldingsRepository
     val holdingsStream: Flow<PagingData<HoldingEntity>>
+    val allHoldingsForSummary: LiveData<List<HoldingEntity>>
 
     init {
         val database = AppDatabase.getDatabase(application)
         repository = HoldingsRepository(database)
         holdingsStream = repository.getHoldingsStream().cachedIn(viewModelScope)
+        allHoldingsForSummary = repository.allHoldingsForSummary
     }
 }
