@@ -4,12 +4,14 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.romeojtask.R
 import com.example.romeojtask.data.db.HoldingEntity
 import com.example.romeojtask.databinding.ListItemHoldingBinding
 
-class HoldingsAdapter(private var holdings: List<HoldingEntity>) : RecyclerView.Adapter<HoldingsAdapter.ViewHolder>() {
+class HoldingsAdapter : PagingDataAdapter<HoldingEntity, HoldingsAdapter.ViewHolder>(HoldingComparator) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ListItemHoldingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -17,33 +19,32 @@ class HoldingsAdapter(private var holdings: List<HoldingEntity>) : RecyclerView.
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val holding = holdings[position]
-        holder.binding.symbol.text = holding.symbol
-        holder.binding.netQtyValue.text = holding.quantity.toString()
-        holder.binding.ltpValue.text = holding.ltp.toString()
+        getItem(position)?.let { holding ->
+            holder.binding.symbol.text = holding.symbol
+            holder.binding.netQtyValue.text = holding.quantity.toString()
+            holder.binding.ltpValue.text = holding.ltp.toString()
 
-        val pnl = (holding.ltp - holding.close) * holding.quantity
-        holder.binding.pnlValue.text = String.format("%.2f", pnl)
+            val pnl = (holding.ltp - holding.close) * holding.quantity
+            holder.binding.pnlValue.text = String.format("%.2f", pnl)
 
-        val context = holder.itemView.context
-        val pnlColor = when {
-            pnl > 0 -> ContextCompat.getColor(context, R.color.green)
-            pnl < 0 -> ContextCompat.getColor(context, R.color.red)
-            else -> {
-                val typedValue = TypedValue()
-                context.theme.resolveAttribute(R.attr.textColorOnPrimary, typedValue, true)
-                typedValue.data
+            val context = holder.itemView.context
+            val pnlColor = when {
+                pnl > 0 -> ContextCompat.getColor(context, R.color.green)
+                pnl < 0 -> ContextCompat.getColor(context, R.color.red)
+                else -> {
+                    val typedValue = TypedValue()
+                    context.theme.resolveAttribute(R.attr.textColorOnPrimary, typedValue, true)
+                    typedValue.data
+                }
             }
+            holder.binding.pnlValue.setTextColor(pnlColor)
         }
-        holder.binding.pnlValue.setTextColor(pnlColor)
-    }
-
-    override fun getItemCount() = holdings.size
-
-    fun updateData(newHoldings: List<HoldingEntity>) {
-        this.holdings = newHoldings
-        notifyDataSetChanged()
     }
 
     class ViewHolder(val binding: ListItemHoldingBinding) : RecyclerView.ViewHolder(binding.root)
+
+    object HoldingComparator : DiffUtil.ItemCallback<HoldingEntity>() {
+        override fun areItemsTheSame(oldItem: HoldingEntity, newItem: HoldingEntity) = oldItem.symbol == newItem.symbol
+        override fun areContentsTheSame(oldItem: HoldingEntity, newItem: HoldingEntity) = oldItem == newItem
+    }
 }
