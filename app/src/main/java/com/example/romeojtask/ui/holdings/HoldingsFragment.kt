@@ -4,18 +4,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.romeojtask.R
-import com.example.romeojtask.data.utils.CalculationUtils
+import com.example.romeojtask.data.utils.calculateOverallPnl
+import com.example.romeojtask.data.utils.calculateOverallPnlPercentage
+import com.example.romeojtask.data.utils.calculateTodaysTotalPnl
+import com.example.romeojtask.data.utils.calculateTotalCurrentValue
+import com.example.romeojtask.data.utils.calculateTotalInvestment
 import com.example.romeojtask.databinding.FragmentHoldingsBinding
 import com.example.romeojtask.ui.DividerItemDecoration
-import com.example.romeojtask.ui.utils.FormattingUtils
+import com.example.romeojtask.ui.utils.setPnlTextColor
+import com.example.romeojtask.ui.utils.toIndianCurrency
 import com.example.romeojtask.viewmodel.HoldingsViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -69,24 +72,20 @@ class HoldingsFragment : Fragment() {
         viewModel.allHoldingsForSummary.observe(viewLifecycleOwner) { holdings ->
             if (holdings.isNullOrEmpty()) return@observe
 
-            val totalCurrentValue = CalculationUtils.calculateTotalCurrentValue(holdings)
-            val totalInvestment = CalculationUtils.calculateTotalInvestment(holdings)
-            val todaysPnl = CalculationUtils.calculateTodaysTotalPnl(holdings)
-            val totalPnl = CalculationUtils.calculateOverallPnl(totalCurrentValue, totalInvestment)
-            val totalPnlPercentage = CalculationUtils.calculateOverallPnlPercentage(totalPnl, totalInvestment)
+            val totalCurrentValue = holdings.calculateTotalCurrentValue()
+            val totalInvestment = holdings.calculateTotalInvestment()
+            val todaysPnl = holdings.calculateTodaysTotalPnl()
+            val totalPnl = calculateOverallPnl(totalCurrentValue, totalInvestment)
+            val totalPnlPercentage = calculateOverallPnlPercentage(totalPnl, totalInvestment)
 
-            binding.currentValueTotal.text = FormattingUtils.formatToIndianCurrency(totalCurrentValue)
-            binding.totalInvestmentValue.text = FormattingUtils.formatToIndianCurrency(totalInvestment)
-            binding.todaysPnlValue.text = FormattingUtils.formatToIndianCurrency(todaysPnl)
-            binding.totalPnlValue.text = "${FormattingUtils.formatToIndianCurrency(totalPnl)} (${String.format("%.2f", totalPnlPercentage)}%)"
+            binding.currentValueTotal.text = totalCurrentValue.toIndianCurrency()
+            binding.totalInvestmentValue.text = totalInvestment.toIndianCurrency()
+            binding.todaysPnlValue.text = todaysPnl.toIndianCurrency()
+            binding.totalPnlValue.text = "${totalPnl.toIndianCurrency()} (${String.format("%.2f", totalPnlPercentage)}%)"
 
             // Set colors for P&L values
-            val red = ContextCompat.getColor(requireContext(), R.color.red)
-            val green = ContextCompat.getColor(requireContext(), R.color.green)
-            val defaultColor = binding.totalInvestmentValue.currentTextColor
-
-            binding.todaysPnlValue.setTextColor(if (todaysPnl >= 0) green else red)
-            binding.totalPnlValue.setTextColor(if (totalPnl >= 0) green else red)
+            binding.todaysPnlValue.setPnlTextColor(todaysPnl)
+            binding.totalPnlValue.setPnlTextColor(totalPnl)
         }
     }
 

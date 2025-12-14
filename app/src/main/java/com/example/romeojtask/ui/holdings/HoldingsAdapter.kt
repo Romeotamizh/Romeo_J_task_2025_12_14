@@ -1,17 +1,15 @@
 package com.example.romeojtask.ui.holdings
 
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.romeojtask.R
 import com.example.romeojtask.data.db.HoldingEntity
-import com.example.romeojtask.data.utils.CalculationUtils
+import com.example.romeojtask.data.utils.calculateTodaysPnl
 import com.example.romeojtask.databinding.ListItemHoldingBinding
-import com.example.romeojtask.ui.utils.FormattingUtils
+import com.example.romeojtask.ui.utils.setPnlTextColor
+import com.example.romeojtask.ui.utils.toIndianCurrency
 
 class HoldingsAdapter : PagingDataAdapter<HoldingEntity, HoldingsAdapter.ViewHolder>(HoldingComparator) {
 
@@ -25,22 +23,11 @@ class HoldingsAdapter : PagingDataAdapter<HoldingEntity, HoldingsAdapter.ViewHol
             holder.binding.symbol.text = holding.symbol
             holder.binding.netQtyValue.text = holding.quantity.toString()
 
-            holder.binding.ltpValue.text = FormattingUtils.formatToIndianCurrency(holding.ltp)
+            holder.binding.ltpValue.text = holding.ltp.toIndianCurrency()
 
-            val pnl = CalculationUtils.calculateTodaysPnl(holding.ltp, holding.close, holding.quantity)
-            holder.binding.pnlValue.text = FormattingUtils.formatToIndianCurrency(pnl)
-
-            val context = holder.itemView.context
-            val pnlColor = when {
-                pnl > 0 -> ContextCompat.getColor(context, R.color.green)
-                pnl < 0 -> ContextCompat.getColor(context, R.color.red)
-                else -> {
-                    val typedValue = TypedValue()
-                    context.theme.resolveAttribute(R.attr.textColorOnPrimary, typedValue, true)
-                    typedValue.data
-                }
-            }
-            holder.binding.pnlValue.setTextColor(pnlColor)
+            val pnl = holding.calculateTodaysPnl()
+            holder.binding.pnlValue.text = pnl.toIndianCurrency()
+            holder.binding.pnlValue.setPnlTextColor(pnl)
         }
     }
 
