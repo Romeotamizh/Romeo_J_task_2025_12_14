@@ -3,4 +3,5 @@
     <attr name="textColorOnPrimary" format="color" />
     <attr name="textColorSmall" format="color" />
     <attr name="tabTextColor" format="color" />
+    <attr name="textColorSubText" format="color" />
 </resources>

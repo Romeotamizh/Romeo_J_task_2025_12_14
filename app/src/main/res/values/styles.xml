@@ -28,6 +28,11 @@
         <item name="android:textAllCaps">true</item>
     </style>
 
+    <style name="SubText">
+        <item name="android:textSize">@dimen/sp_12</item>
+        <item name="android:textColor">?attr/textColorSubText</item>
+    </style>
+
     <style name="SmallText">
         <item name="android:textSize">@dimen/sp_10</item>
         <item name="android:textColor">?attr/textColorSmall</item>

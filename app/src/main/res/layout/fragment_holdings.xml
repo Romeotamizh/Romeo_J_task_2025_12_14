@@ -22,7 +22,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="@dimen/dp_16"
+            android:paddingHorizontal="@dimen/dp_16"
+            android:paddingTop="@dimen/dp_8"
             android:visibility="gone">
 
             <RelativeLayout
@@ -31,7 +32,7 @@
                 android:layout_marginBottom="@dimen/dp_8">
 
                 <TextView
-                    style="@style/SubTitle"
+                    style="@style/SubText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
@@ -39,7 +40,7 @@
 
                 <TextView
                     android:id="@+id/current_value_total"
-                    style="@style/SubTitle"
+                    style="@style/SubText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -52,7 +53,7 @@
                 android:layout_marginBottom="@dimen/dp_8">
 
                 <TextView
-                    style="@style/SubTitle"
+                    style="@style/SubText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
@@ -60,7 +61,7 @@
 
                 <TextView
                     android:id="@+id/total_investment_value"
-                    style="@style/SubTitle"
+                    style="@style/SubText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -72,7 +73,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    style="@style/SubTitle"
+                    style="@style/SubText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
@@ -80,12 +81,17 @@
 
                 <TextView
                     android:id="@+id/todays_pnl_value"
-                    style="@style/SubTitle"
+                    style="@style/SubText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     tools:text="₹20,000.50" />
             </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/dp_8"
+                android:layout_height="@dimen/dp_1"
+                android:background="?attr/textColorSubText" />
         </LinearLayout>
 
         <!-- Always Visible Footer -->
@@ -95,9 +101,7 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             android:focusable="true"
-            android:minHeight="?attr/actionBarSize"
-            android:paddingStart="@dimen/dp_16"
-            android:paddingEnd="@dimen/dp_16">
+            android:padding="@dimen/dp_16">
 
             <ImageView
                 android:id="@+id/summary_chevron"
@@ -107,7 +111,7 @@
                 android:src="@drawable/ic_chevron_up" />
 
             <TextView
-                style="@style/SmallTextCaps"
+                style="@style/SubText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -117,7 +121,7 @@
 
             <TextView
                 android:id="@+id/total_pnl_value"
-                style="@style/SubTitle"
+                style="@style/SubText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
