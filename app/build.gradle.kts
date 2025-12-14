@@ -47,6 +47,7 @@ android {
     }
 }
 
+
 dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -74,7 +75,6 @@ dependencies {
     implementation("androidx.room:room-runtime:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")
     implementation("androidx.room:room-paging:2.6.1")
-// <-- Add this line
     kapt("androidx.room:room-compiler:2.6.1")
 
     // Paging 3 for pagination
@@ -82,5 +82,6 @@ dependencies {
 
     // Testing
     testImplementation("com.google.truth:truth:1.1.3")
+    androidTestImplementation("com.google.truth:truth:1.1.3") // Added for instrumented tests
     testImplementation("org.robolectric:robolectric:4.10.3")
 }
