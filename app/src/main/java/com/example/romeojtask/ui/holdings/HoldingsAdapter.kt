@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.romeojtask.R
 import com.example.romeojtask.data.db.HoldingEntity
 import com.example.romeojtask.databinding.ListItemHoldingBinding
+import java.text.NumberFormat
+import java.util.Locale
 
 class HoldingsAdapter : PagingDataAdapter<HoldingEntity, HoldingsAdapter.ViewHolder>(HoldingComparator) {
 
@@ -22,10 +24,13 @@ class HoldingsAdapter : PagingDataAdapter<HoldingEntity, HoldingsAdapter.ViewHol
         getItem(position)?.let { holding ->
             holder.binding.symbol.text = holding.symbol
             holder.binding.netQtyValue.text = holding.quantity.toString()
-            holder.binding.ltpValue.text = holding.ltp.toString()
+
+            val currencyFormat = NumberFormat.getCurrencyInstance(Locale("en", "IN"))
+
+            holder.binding.ltpValue.text = currencyFormat.format(holding.ltp)
 
             val pnl = (holding.ltp - holding.close) * holding.quantity
-            holder.binding.pnlValue.text = String.format("%.2f", pnl)
+            holder.binding.pnlValue.text = currencyFormat.format(pnl)
 
             val context = holder.itemView.context
             val pnlColor = when {

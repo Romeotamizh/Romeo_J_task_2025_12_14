@@ -7,5 +7,6 @@
     <string name="label_current_value">Current Value</string>
     <string name="label_total_investment">Total Investment</string>
     <string name="label_todays_p_and_l">Today\'s Profit &amp; Loss</string>
-    <string name="portfolio">Portfolio</string>
+    <string name="label_holdings">Holdings</string>
+    <string name="label_positions">Positions</string>
 </resources>

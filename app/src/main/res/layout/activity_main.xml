@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         app:tabIndicatorColor="?attr/tabTextColor"
         app:tabSelectedTextColor="?attr/tabTextColor"
-        app:tabTextAppearance="@style/SubtitleCaps" />
+        app:tabTextAppearance="@style/SubtitleBoldCaps" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager"

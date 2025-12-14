@@ -28,6 +28,10 @@
         <item name="android:textAllCaps">true</item>
     </style>
 
+    <style name="SubtitleBoldCaps" parent="SubtitleBold">
+        <item name="android:textAllCaps">true</item>
+    </style>
+
     <style name="SubText">
         <item name="android:textSize">@dimen/sp_12</item>
         <item name="android:textColor">?attr/textColorSubText</item>

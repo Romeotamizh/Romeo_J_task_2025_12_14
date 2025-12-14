@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.romeojtask.R
 import com.example.romeojtask.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -27,15 +28,23 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "Search clicked", Toast.LENGTH_SHORT).show()
         }
 
+        binding.customToolbar.profileImage.setOnClickListener {
+            Toast.makeText(this, "Profile icon clicked", Toast.LENGTH_SHORT).show()
+        }
+
         binding.viewPager.adapter = ViewPagerAdapter(this)
 
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = when (position) {
-                0 -> "POSITIONS"
-                1 -> "HOLDINGS"
+                0 -> getString(R.string.label_positions)
+                1 -> getString(R.string.label_holdings)
                 else -> null
             }
         }.attach()
+
+        // Disable the first tab (POSITIONS)
+        binding.tabLayout.getTabAt(0)?.view?.isClickable = false
+        binding.tabLayout.getTabAt(0)?.view?.alpha = 0.5f
 
         // Set the initial tab to HOLDINGS
         binding.viewPager.currentItem = 1
