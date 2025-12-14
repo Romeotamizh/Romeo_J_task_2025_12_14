@@ -1,6 +1,5 @@
 package com.example.romeojtask.security
 
-import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
