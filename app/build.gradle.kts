@@ -40,6 +40,11 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
+    }
 }
 
 dependencies {
@@ -74,4 +79,8 @@ dependencies {
 
     // Paging 3 for pagination
     implementation("androidx.paging:paging-runtime-ktx:3.2.1")
+
+    // Testing
+    testImplementation("com.google.truth:truth:1.1.3")
+    testImplementation("org.robolectric:robolectric:4.10.3")
 }
