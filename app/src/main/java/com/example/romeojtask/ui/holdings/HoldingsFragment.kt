@@ -10,13 +10,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.romeojtask.data.utils.calculateOverallPnl
-import com.example.romeojtask.data.utils.calculateOverallPnlPercentage
-import com.example.romeojtask.data.utils.calculateTodaysTotalPnl
-import com.example.romeojtask.data.utils.calculateTotalCurrentValue
-import com.example.romeojtask.data.utils.calculateTotalInvestment
 import com.example.romeojtask.databinding.FragmentHoldingsBinding
 import com.example.romeojtask.ui.DividerItemDecoration
+import com.example.romeojtask.ui.utils.calculateOverallPnl
+import com.example.romeojtask.ui.utils.calculateOverallPnlPercentage
+import com.example.romeojtask.ui.utils.calculateTodayTotalPnl
+import com.example.romeojtask.ui.utils.calculateTotalCurrentValue
+import com.example.romeojtask.ui.utils.calculateTotalInvestment
 import com.example.romeojtask.ui.utils.setPnlTextColor
 import com.example.romeojtask.ui.utils.toIndianCurrency
 import com.example.romeojtask.viewmodel.HoldingsViewModel
@@ -25,8 +25,7 @@ import kotlinx.coroutines.launch
 
 class HoldingsFragment : Fragment() {
 
-    private var _binding: FragmentHoldingsBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentHoldingsBinding
 
     private lateinit var viewModel: HoldingsViewModel
     private val holdingsAdapter = HoldingsAdapter()
@@ -35,7 +34,7 @@ class HoldingsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentHoldingsBinding.inflate(inflater, container, false)
+        binding = FragmentHoldingsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -48,14 +47,14 @@ class HoldingsFragment : Fragment() {
         setupSummaryView()
     }
 
-    private fun setupRecyclerView() {
-        binding.holdingsRecyclerView.adapter = holdingsAdapter
-        binding.holdingsRecyclerView.layoutManager = LinearLayoutManager(context)
-        binding.holdingsRecyclerView.addItemDecoration(DividerItemDecoration(requireContext()))
+    private fun setupRecyclerView() = with(binding.holdingsRecyclerView) {
+        adapter = holdingsAdapter
+        layoutManager = LinearLayoutManager(context)
+        addItemDecoration(DividerItemDecoration(requireContext()))
     }
 
     private fun setupViewModel() {
-        viewModel = ViewModelProvider(this).get(HoldingsViewModel::class.java)
+        viewModel = ViewModelProvider(this)[HoldingsViewModel::class.java]
 
         lifecycleScope.launch {
             viewModel.holdingsStream.collectLatest {
@@ -74,37 +73,32 @@ class HoldingsFragment : Fragment() {
 
             val totalCurrentValue = holdings.calculateTotalCurrentValue()
             val totalInvestment = holdings.calculateTotalInvestment()
-            val todaysPnl = holdings.calculateTodaysTotalPnl()
+            val todayPnl = holdings.calculateTodayTotalPnl()
             val totalPnl = calculateOverallPnl(totalCurrentValue, totalInvestment)
             val totalPnlPercentage = calculateOverallPnlPercentage(totalPnl, totalInvestment)
 
             binding.currentValueTotal.text = totalCurrentValue.toIndianCurrency()
             binding.totalInvestmentValue.text = totalInvestment.toIndianCurrency()
-            binding.todaysPnlValue.text = todaysPnl.toIndianCurrency()
+            binding.todaysPnlValue.text = todayPnl.toIndianCurrency()
             binding.totalPnlValue.text = "${totalPnl.toIndianCurrency()} (${String.format("%.2f", totalPnlPercentage)}%)"
 
             // Set colors for P&L values
-            binding.todaysPnlValue.setPnlTextColor(todaysPnl)
+            binding.todaysPnlValue.setPnlTextColor(todayPnl)
             binding.totalPnlValue.setPnlTextColor(totalPnl)
         }
     }
 
-    private fun setupSwipeToRefresh() {
-        binding.swipeRefreshLayout.setOnRefreshListener {
+    private fun setupSwipeToRefresh() = with(binding.swipeRefreshLayout) {
+        setOnRefreshListener {
             holdingsAdapter.refresh()
         }
     }
 
-    private fun setupSummaryView() {
-        binding.summaryHeader.setOnClickListener {
-            val isExpanded = binding.expandedContent.isVisible
-            binding.expandedContent.visibility = if (isExpanded) View.GONE else View.VISIBLE
-            binding.summaryChevron.rotation = if (isExpanded) 0f else 180f
+    private fun setupSummaryView() = with(binding) {
+        summaryHeader.setOnClickListener {
+            val isExpanded = expandedContent.isVisible
+            expandedContent.visibility = if (isExpanded) View.GONE else View.VISIBLE
+            summaryChevron.rotation = if (isExpanded) 0f else 180f
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

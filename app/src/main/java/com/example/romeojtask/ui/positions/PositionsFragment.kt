@@ -9,19 +9,13 @@ import com.example.romeojtask.databinding.FragmentPositionsBinding
 
 class PositionsFragment : Fragment() {
 
-    private var _binding: FragmentPositionsBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentPositionsBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentPositionsBinding.inflate(inflater, container, false)
+        binding = FragmentPositionsBinding.inflate(inflater, container, false)
         return binding.root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

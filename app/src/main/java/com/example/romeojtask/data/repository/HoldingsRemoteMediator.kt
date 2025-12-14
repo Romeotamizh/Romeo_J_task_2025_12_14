@@ -25,9 +25,10 @@ class HoldingsRemoteMediator(
         state: PagingState<Int, HoldingEntity>
     ): MediatorResult {
         return try {
-            val page = when (loadType) {
-                LoadType.REFRESH -> 1
-                LoadType.PREPEND, LoadType.APPEND -> return MediatorResult.Success(endOfPaginationReached = true)
+            when (loadType) {
+                LoadType.REFRESH -> {  } /* Since this is not a paginated api, we'll just load the whole data */
+                // REACHED EOL!!!
+                else -> return MediatorResult.Success(endOfPaginationReached = true)
             }
 
             val response = apiService.getHoldings()
@@ -37,8 +38,9 @@ class HoldingsRemoteMediator(
                 if (loadType == LoadType.REFRESH) {
                     holdingsDao.clearAllHoldings()
                 }
-                val entities = holdings.map { it.toEntity() }
-                holdingsDao.upsertAll(entities)
+                holdings.map { it.toEntity() }.let {
+                    holdingsDao.upsertAll(it)
+                }
             }
 
             MediatorResult.Success(endOfPaginationReached = true)
@@ -54,7 +56,7 @@ class HoldingsRemoteMediator(
         symbol = symbol,
         quantity = quantity,
         ltp = ltp,
-        avgPrice = avgPrice, // This line was missing
+        avgPrice = avgPrice,
         close = close
     )
 }

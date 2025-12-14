@@ -14,7 +14,7 @@ import org.robolectric.RuntimeEnvironment
 import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
-@Config(sdk = [28]) // Configure for a specific SDK version
+@Config(sdk = [28])
 class UiUtilsTest {
 
     private lateinit var context: Context

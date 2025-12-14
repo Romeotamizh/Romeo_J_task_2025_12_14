@@ -7,7 +7,7 @@ import com.example.romeojtask.R
 import java.text.NumberFormat
 import java.util.Locale
 
-private val currencyFormat = NumberFormat.getCurrencyInstance(Locale("en", "IN"))
+private val currencyFormat = NumberFormat.getCurrencyInstance(Locale.forLanguageTag("en-IN"))
 
 fun Double.toIndianCurrency(): String {
     return currencyFormat.format(this)

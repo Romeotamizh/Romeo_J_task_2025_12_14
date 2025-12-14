@@ -6,8 +6,8 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.romeojtask.data.db.HoldingEntity
-import com.example.romeojtask.data.utils.calculateTodaysPnl
 import com.example.romeojtask.databinding.ListItemHoldingBinding
+import com.example.romeojtask.ui.utils.calculateTodayPnl
 import com.example.romeojtask.ui.utils.setPnlTextColor
 import com.example.romeojtask.ui.utils.toIndianCurrency
 
@@ -25,7 +25,7 @@ class HoldingsAdapter : PagingDataAdapter<HoldingEntity, HoldingsAdapter.ViewHol
 
             holder.binding.ltpValue.text = holding.ltp.toIndianCurrency()
 
-            val pnl = holding.calculateTodaysPnl()
+            val pnl = holding.calculateTodayPnl()
             holder.binding.pnlValue.text = pnl.toIndianCurrency()
             holder.binding.pnlValue.setPnlTextColor(pnl)
         }
