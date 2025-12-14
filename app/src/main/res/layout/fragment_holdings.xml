@@ -114,28 +114,28 @@
             android:focusable="true"
             android:paddingStart="@dimen/dp_8"
             android:paddingEnd="@dimen/dp_8"
-            android:paddingTop="@dimen/dp_8"
+            android:paddingTop="@dimen/dp_16"
             android:paddingBottom="@dimen/dp_16">
-
-            <ImageView
-                android:id="@+id/summary_chevron"
-                android:layout_width="@dimen/sp_10"
-                android:layout_height="@dimen/sp_10"
-                android:src="@drawable/ic_chevron_up"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/pnl_label_footer"
                 style="@style/SubText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_4"
                 android:text="@string/label_p_and_l"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/summary_chevron"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/summary_chevron"
+                android:layout_width="@dimen/dp_16"
+                android:layout_height="@dimen/dp_16"
+                android:src="@drawable/ic_chevron_up"
+                android:layout_marginStart="@dimen/dp_4"
+                app:layout_constraintBottom_toBottomOf="@+id/pnl_label_footer"
+                app:layout_constraintStart_toEndOf="@+id/pnl_label_footer"
+                app:layout_constraintTop_toTopOf="@+id/pnl_label_footer" />
 
             <TextView
                 android:id="@+id/total_pnl_value"

@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.romeojtask.R
 import com.example.romeojtask.data.db.HoldingEntity
+import com.example.romeojtask.data.utils.CalculationUtils
 import com.example.romeojtask.databinding.ListItemHoldingBinding
-import java.text.NumberFormat
-import java.util.Locale
+import com.example.romeojtask.ui.utils.FormattingUtils
 
 class HoldingsAdapter : PagingDataAdapter<HoldingEntity, HoldingsAdapter.ViewHolder>(HoldingComparator) {
 
@@ -25,12 +25,10 @@ class HoldingsAdapter : PagingDataAdapter<HoldingEntity, HoldingsAdapter.ViewHol
             holder.binding.symbol.text = holding.symbol
             holder.binding.netQtyValue.text = holding.quantity.toString()
 
-            val currencyFormat = NumberFormat.getCurrencyInstance(Locale("en", "IN"))
+            holder.binding.ltpValue.text = FormattingUtils.formatToIndianCurrency(holding.ltp)
 
-            holder.binding.ltpValue.text = currencyFormat.format(holding.ltp)
-
-            val pnl = (holding.ltp - holding.close) * holding.quantity
-            holder.binding.pnlValue.text = currencyFormat.format(pnl)
+            val pnl = CalculationUtils.calculateTodaysPnl(holding.ltp, holding.close, holding.quantity)
+            holder.binding.pnlValue.text = FormattingUtils.formatToIndianCurrency(pnl)
 
             val context = holder.itemView.context
             val pnlColor = when {

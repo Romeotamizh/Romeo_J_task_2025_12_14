@@ -2,7 +2,7 @@
 <resources>
     <style name="ToolbarText">
         <item name="android:textSize">@dimen/sp_20</item>
-        <item name="android:textColor">?attr/textColorOnPrimary</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="Title">
