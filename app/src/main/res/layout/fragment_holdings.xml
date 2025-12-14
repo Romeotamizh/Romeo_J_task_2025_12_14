@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="?android:attr/colorBackground"
+        android:background="?attr/colorSurfaceContainer"
         android:orientation="vertical">
 
         <!-- Expanded Content (Initially hidden) -->
@@ -91,7 +91,7 @@
                 android:layout_width="match_parent"
                 android:layout_marginTop="@dimen/dp_8"
                 android:layout_height="@dimen/dp_1"
-                android:background="?attr/textColorSubText" />
+                android:background="?attr/textColorSmall" />
         </LinearLayout>
 
         <!-- Always Visible Footer -->
@@ -101,6 +101,7 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             android:focusable="true"
+            android:background="?attr/colorSurfaceContainer"
             android:padding="@dimen/dp_16">
 
             <ImageView

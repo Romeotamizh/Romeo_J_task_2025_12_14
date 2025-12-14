@@ -6,8 +6,9 @@
         <item name="android:statusBarColor">@color/black</item>
         <item name="dividerColor">@color/white_75</item>
         <item name="textColorOnPrimary">@color/white</item>
-        <item name="textColorSmall">@color/white_75</item>
+        <item name="textColorSmall">@color/white_50</item>
         <item name="tabTextColor">@color/white</item>
         <item name="textColorSubText">@color/white_75</item>
+        <item name="colorSurfaceContainer">@color/off_black</item>
     </style>
 </resources>
