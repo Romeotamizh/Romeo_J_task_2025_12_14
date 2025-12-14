@@ -13,7 +13,7 @@
         android:id="@+id/summary_container"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="?attr/colorSurfaceContainer"
+        android:background="@drawable/bg_bottom_summary"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingHorizontal="@dimen/dp_16"
+            android:paddingHorizontal="@dimen/dp_8"
             android:paddingTop="@dimen/dp_8"
             android:visibility="gone">
 
@@ -110,10 +110,12 @@
             android:id="@+id/summary_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorSurfaceContainer"
             android:clickable="true"
             android:focusable="true"
-            android:padding="@dimen/dp_16">
+            android:paddingStart="@dimen/dp_8"
+            android:paddingEnd="@dimen/dp_8"
+            android:paddingTop="@dimen/dp_8"
+            android:paddingBottom="@dimen/dp_16">
 
             <ImageView
                 android:id="@+id/summary_chevron"
