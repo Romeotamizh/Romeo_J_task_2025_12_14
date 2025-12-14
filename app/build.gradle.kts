@@ -79,9 +79,12 @@ dependencies {
 
     // Paging 3 for pagination
     implementation("androidx.paging:paging-runtime-ktx:3.2.1")
+    testImplementation("androidx.paging:paging-testing:3.2.1")
 
     // Testing
     testImplementation("com.google.truth:truth:1.1.3")
-    androidTestImplementation("com.google.truth:truth:1.1.3") // Added for instrumented tests
+    androidTestImplementation("com.google.truth:truth:1.1.3")
     testImplementation("org.robolectric:robolectric:4.10.3")
+    testImplementation("io.mockk:mockk:1.13.5")
+    testImplementation("androidx.arch.core:core-testing:2.2.0") // For InstantTaskExecutorRule
 }

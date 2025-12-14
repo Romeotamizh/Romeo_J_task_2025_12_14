@@ -21,7 +21,6 @@ local.properties
 *.hprof
 .DS_Store
 .externalNativeBuild/
-*.apk
 *.ap_
 *.aab
 *.app

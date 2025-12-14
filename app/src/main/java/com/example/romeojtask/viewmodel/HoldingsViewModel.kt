@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import com.example.romeojtask.data.api.RetrofitInstance
 import com.example.romeojtask.data.db.AppDatabase
 import com.example.romeojtask.data.db.HoldingEntity
 import com.example.romeojtask.data.repository.HoldingsRepository
@@ -19,8 +20,8 @@ class HoldingsViewModel(application: Application) : AndroidViewModel(application
 
     init {
         val database = AppDatabase.getDatabase(application)
-        repository = HoldingsRepository(database)
+        repository = HoldingsRepository(database, RetrofitInstance.api)
         holdingsStream = repository.getHoldingsStream().cachedIn(viewModelScope)
-        allHoldingsForSummary = repository.allHoldingsForSummary
+        allHoldingsForSummary = database.holdingsDao().getAllHoldingsList() // Corrected: Get from DAO directly
     }
 }
