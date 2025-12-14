@@ -13,7 +13,7 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.romeojtask.ui.utils.calculateOverallPnl
 import com.example.romeojtask.ui.utils.calculateOverallPnlPercentage
-import com.example.romeojtask.ui.utils.calculateTodaysTotalPnl
+import com.example.romeojtask.ui.utils.calculateTodayTotalPnl
 import com.example.romeojtask.ui.utils.calculateTotalCurrentValue
 import com.example.romeojtask.ui.utils.calculateTotalInvestment
 import com.example.romeojtask.databinding.FragmentHoldingsBinding
@@ -79,7 +79,7 @@ class HoldingsFragment : Fragment() {
 
             val totalCurrentValue = holdings.calculateTotalCurrentValue()
             val totalInvestment = holdings.calculateTotalInvestment()
-            val todayPnl = holdings.calculateTodaysTotalPnl()
+            val todayPnl = holdings.calculateTodayTotalPnl()
             val totalPnl = calculateOverallPnl(totalCurrentValue, totalInvestment)
             val totalPnlPercentage = calculateOverallPnlPercentage(totalPnl, totalInvestment)
 

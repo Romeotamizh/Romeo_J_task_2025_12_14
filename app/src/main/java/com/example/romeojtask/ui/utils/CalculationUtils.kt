@@ -14,7 +14,7 @@ fun List<HoldingEntity>.calculateTotalInvestment(): Double {
     return this.sumOf { it.details.avgPrice * it.details.quantity }
 }
 
-fun List<HoldingEntity>.calculateTodaysTotalPnl(): Double {
+fun List<HoldingEntity>.calculateTodayTotalPnl(): Double {
     return this.sumOf { it.calculateTodayPnl() }
 }
 
