@@ -7,6 +7,7 @@ import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.example.romeojtask.data.api.ApiService
 import com.example.romeojtask.data.db.AppDatabase
+import com.example.romeojtask.data.db.HoldingDetails
 import com.example.romeojtask.data.db.HoldingEntity
 import com.example.romeojtask.data.model.Holding
 import retrofit2.HttpException
@@ -26,21 +27,19 @@ class HoldingsRemoteMediator(
     ): MediatorResult {
         return try {
             when (loadType) {
-                LoadType.REFRESH -> {  } /* Since this is not a paginated api, we'll just load the whole data */
-                // REACHED EOL!!!
-                else -> return MediatorResult.Success(endOfPaginationReached = true)
+                LoadType.REFRESH -> { /* Do nothing */ }
+                LoadType.PREPEND, LoadType.APPEND -> return MediatorResult.Success(endOfPaginationReached = true)
             }
 
             val response = apiService.getHoldings()
-            val holdings = response.data.holdings
+            val holdings = response.data.userHoldings
 
             database.withTransaction {
                 if (loadType == LoadType.REFRESH) {
                     holdingsDao.clearAllHoldings()
                 }
-                holdings.map { it.toEntity() }.let {
-                    holdingsDao.upsertAll(it)
-                }
+                val entities = holdings.map { it.toEntity() }
+                holdingsDao.upsertAll(entities)
             }
 
             MediatorResult.Success(endOfPaginationReached = true)
@@ -54,9 +53,11 @@ class HoldingsRemoteMediator(
 
     private fun Holding.toEntity() = HoldingEntity(
         symbol = symbol,
-        quantity = quantity,
-        ltp = ltp,
-        avgPrice = avgPrice,
-        close = close
+        details = HoldingDetails(
+            quantity = quantity,
+            ltp = ltp,
+            avgPrice = avgPrice,
+            close = close
+        )
     )
 }

@@ -3,18 +3,18 @@ package com.example.romeojtask.ui.utils
 import com.example.romeojtask.data.db.HoldingEntity
 
 fun HoldingEntity.calculateTodayPnl(): Double {
-    return (this.ltp - this.close) * this.quantity
+    return (this.details.ltp - this.details.close) * this.details.quantity
 }
 
 fun List<HoldingEntity>.calculateTotalCurrentValue(): Double {
-    return this.sumOf { it.ltp * it.quantity }
+    return this.sumOf { it.details.ltp * it.details.quantity }
 }
 
 fun List<HoldingEntity>.calculateTotalInvestment(): Double {
-    return this.sumOf { it.avgPrice * it.quantity }
+    return this.sumOf { it.details.avgPrice * it.details.quantity }
 }
 
-fun List<HoldingEntity>.calculateTodayTotalPnl(): Double {
+fun List<HoldingEntity>.calculateTodaysTotalPnl(): Double {
     return this.sumOf { it.calculateTodayPnl() }
 }
 

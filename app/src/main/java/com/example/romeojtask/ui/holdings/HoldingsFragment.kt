@@ -4,19 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.romeojtask.databinding.FragmentHoldingsBinding
-import com.example.romeojtask.ui.DividerItemDecoration
 import com.example.romeojtask.ui.utils.calculateOverallPnl
 import com.example.romeojtask.ui.utils.calculateOverallPnlPercentage
-import com.example.romeojtask.ui.utils.calculateTodayTotalPnl
+import com.example.romeojtask.ui.utils.calculateTodaysTotalPnl
 import com.example.romeojtask.ui.utils.calculateTotalCurrentValue
 import com.example.romeojtask.ui.utils.calculateTotalInvestment
+import com.example.romeojtask.databinding.FragmentHoldingsBinding
+import com.example.romeojtask.ui.DividerItemDecoration
 import com.example.romeojtask.ui.utils.setPnlTextColor
 import com.example.romeojtask.ui.utils.toIndianCurrency
 import com.example.romeojtask.viewmodel.HoldingsViewModel
@@ -63,8 +64,13 @@ class HoldingsFragment : Fragment() {
         }
 
         lifecycleScope.launch {
-            holdingsAdapter.loadStateFlow.collectLatest {
-                binding.swipeRefreshLayout.isRefreshing = it.refresh is LoadState.Loading
+            holdingsAdapter.loadStateFlow.collectLatest { loadStates ->
+                binding.swipeRefreshLayout.isRefreshing = loadStates.refresh is LoadState.Loading
+
+                val errorState = loadStates.refresh as? LoadState.Error
+                errorState?.let {
+                    Toast.makeText(context, "API call failed: ${it.error.localizedMessage}", Toast.LENGTH_SHORT).show()
+                }
             }
         }
 
@@ -73,7 +79,7 @@ class HoldingsFragment : Fragment() {
 
             val totalCurrentValue = holdings.calculateTotalCurrentValue()
             val totalInvestment = holdings.calculateTotalInvestment()
-            val todayPnl = holdings.calculateTodayTotalPnl()
+            val todayPnl = holdings.calculateTodaysTotalPnl()
             val totalPnl = calculateOverallPnl(totalCurrentValue, totalInvestment)
             val totalPnlPercentage = calculateOverallPnlPercentage(totalPnl, totalInvestment)
 

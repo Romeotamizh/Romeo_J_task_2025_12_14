@@ -7,7 +7,7 @@ data class ApiResponse(
 )
 
 data class HoldingsData(
-    @field:Json(name = "userHolding") val holdings: List<Holding>
+    @property:Json(name = "userHolding") val userHoldings: List<Holding>
 )
 
 data class Holding(

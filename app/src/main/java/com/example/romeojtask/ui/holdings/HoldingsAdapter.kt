@@ -21,9 +21,9 @@ class HoldingsAdapter : PagingDataAdapter<HoldingEntity, HoldingsAdapter.ViewHol
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         getItem(position)?.let { holding ->
             holder.binding.symbol.text = holding.symbol
-            holder.binding.netQtyValue.text = holding.quantity.toString()
+            holder.binding.netQtyValue.text = holding.details.quantity.toString()
 
-            holder.binding.ltpValue.text = holding.ltp.toIndianCurrency()
+            holder.binding.ltpValue.text = holding.details.ltp.toIndianCurrency()
 
             val pnl = holding.calculateTodayPnl()
             holder.binding.pnlValue.text = pnl.toIndianCurrency()
