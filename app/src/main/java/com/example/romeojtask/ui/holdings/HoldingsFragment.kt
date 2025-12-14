@@ -77,20 +77,23 @@ class HoldingsFragment : Fragment() {
         viewModel.allHoldingsForSummary.observe(viewLifecycleOwner) { holdings ->
             if (holdings.isNullOrEmpty()) return@observe
 
-            val totalCurrentValue = holdings.calculateTotalCurrentValue()
-            val totalInvestment = holdings.calculateTotalInvestment()
-            val todayPnl = holdings.calculateTodayTotalPnl()
-            val totalPnl = calculateOverallPnl(totalCurrentValue, totalInvestment)
-            val totalPnlPercentage = calculateOverallPnlPercentage(totalPnl, totalInvestment)
+            with(binding) {
+                val totalCurrentValue = holdings.calculateTotalCurrentValue()
+                val totalInvestment = holdings.calculateTotalInvestment()
+                val todayPnl = holdings.calculateTodayTotalPnl()
+                val totalPnl = calculateOverallPnl(totalCurrentValue, totalInvestment)
+                val totalPnlPercentage = calculateOverallPnlPercentage(totalPnl, totalInvestment)
 
-            binding.currentValueTotal.text = totalCurrentValue.toIndianCurrency()
-            binding.totalInvestmentValue.text = totalInvestment.toIndianCurrency()
-            binding.todaysPnlValue.text = todayPnl.toIndianCurrency()
-            binding.totalPnlValue.text = "${totalPnl.toIndianCurrency()} (${String.format("%.2f", totalPnlPercentage)}%)"
+                currentValueTotal.text = totalCurrentValue.toIndianCurrency()
+                totalInvestmentValue.text = totalInvestment.toIndianCurrency()
+                todaysPnlValue.text = todayPnl.toIndianCurrency()
+                totalPnlValue.text =
+                    "${totalPnl.toIndianCurrency()} (${String.format("%.2f", totalPnlPercentage)}%)"
 
-            // Set colors for P&L values
-            binding.todaysPnlValue.setPnlTextColor(todayPnl)
-            binding.totalPnlValue.setPnlTextColor(totalPnl)
+                // Set colors for P&L values
+                todaysPnlValue.setPnlTextColor(todayPnl)
+                totalPnlValue.setPnlTextColor(totalPnl)
+            }
         }
     }
 
